@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FLASK CRUD</title>
+    <!--loading bootstrap -->
+    <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <!--loading shortcut image of URL-->
+    <link href="{{url_for('static',filename='images/FlaskLogo.png')}}" rel="shortcut icon">
+</head>
+<body>
+    {% block body %}
+    <div class="container">
+        <!--header-->
+        <div  class="well text-center">
+            <h1>Python Flask CRUD Operations Development</h1>
+        </div>
+        <!--body-->
+        <div class="container">
+            <div class="row">
+                <div class="col md-12">
+                    <h2>Student List &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!--adding button-->
+                        <button class="btn btn-success pull-right"
+                    data-toggle="modal" data-target="#mymodal">Add Student data</button></h2>
+                    <!--flash message -->
+                    {%with messages=get_flashed_messages()%}
+                    {%if messages %}
+                    {%for message in messages%}
+                    <div class="alert alert-success alert-dismissiable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span arial-hidden="true">X</span>
+                        </button>
+                        {{message}}
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                    <!--flash message ends-->
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Serial No</th>
+                            <th>Name</th>
+                            <th>Emil Id</th>
+                            <th>Mobile No</th>
+                            <th>Action</th>
+                        </tr>
+                        {%for student in students%}
+                        <tr>
+                            <td>{{student.0}}</td>
+                            <td>{{student.1}}</td>
+                            <td>{{student.2}}</td>
+                            <td>{{student.3}}</td>
+                            <td>
+                                <a href="/update/{{student.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalEdit{{student.0}}">Edit</a>
+                                <a href="/delete/{{student.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+            </div>
+            <!--adding click event for Add Student Button -->
+            <div id="mymodal" class="modal fade" role="dialog">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Please insert data</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('insert') }}" method="POST">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="name" required="1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email ID:</label>
+                                    <input type="text" class="form-control" name="emailId" required="1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile No:</label>
+                                    <input type="text" class="form-control" name="mobileNo" required="1">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Insert Data</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="close" data-dismiss="modal"><h6>close</h6></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--adding click event for Edit Button -->
+            <div id="modalEdit" class="modal fade" role="dialog">
+	            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Please update data</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form  action="" method="POST">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="name" value="Kuntal Barik">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email ID:</label>
+                                    <input type="text" class="form-control" name="emailId" value="kuntal.barik.11@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile No:</label>
+                                    <input type="text" class="form-control" name="mobileNo" value="8927828306">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Update Data</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="close" data-dismiss="modal"><h6>close</h6></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+        <!--footer-->
+        <div class="well">
+            <h3>&nbsp;&nbsp;
+                website : www.flaskcrud.com
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="pull-right">like us : www.facebook.com/flaskCrud</span>
+            </h3>
+        </div>
+    </div>
+</body>
+<!-- to get connectivity with form and button -->
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+</html>
