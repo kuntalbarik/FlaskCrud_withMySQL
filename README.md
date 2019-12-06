@@ -4,6 +4,8 @@ FlaskCrud_withMySQL,javascript
 ===================================================================================================================
 video tutorial link--https://m.youtube.com/watch?v=Pu9XhFJduEw&list=PL1FgJUcJJ03vLZXbAFESDqGKBrDNgi-LG&index=2&t=0s
 ===================================================================================================================
+mysql installation process---https://stackoverflow.com/questions/10892689/cant-connect-to-mysql-server-on-localhost-10061-after-installation
+===================================================================================================================
 MySQL schema
 
 CREATE DATABASE flask_crud_students;
